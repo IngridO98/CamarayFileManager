@@ -19,15 +19,20 @@ import android.provider.MediaStore;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
+import java.io.File;
 import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
 
     ImageView Fotocam;
-    //Button btncamara;
+    TextView txtdir;
     static final int REQUEST_IMAGE_CAPTURE = 1;
+    static final int REQUEST_CODE = 42;
+    static  String NOMBRE = "/tree/primary:Music";
+    Intent intent;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,7 +49,7 @@ public class MainActivity extends AppCompatActivity {
         getPermission(permisos);
         //btncamara=(Button) findViewById(R.id.btncamara);
         Fotocam=(ImageView) findViewById(R.id.imgFoto);
-
+        txtdir= (TextView) findViewById(R.id.txtdir);
 
     }
 
@@ -64,7 +69,6 @@ public class MainActivity extends AppCompatActivity {
             if (Build.VERSION.SDK_INT >= 23)
                  if(checkSelfPermission(permiso) != PackageManager.PERMISSION_GRANTED)
                      list.add(permiso);
-
         }
         return list;
     }
@@ -90,7 +94,19 @@ public class MainActivity extends AppCompatActivity {
         startActivity(intent);
 
     }
+
+    public void AbrirArchivos(){
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.LOLLIPOP){
+            Intent i = new Intent(Intent.ACTION_OPEN_DOCUMENT_TREE);
+            i.addCategory(Intent.CATEGORY_DEFAULT);
+            startActivityForResult(Intent.createChooser(i, "Choose directory"), 5);
+        }
+    }
+
+
     public void BajarDoc(View view){
+        AbrirArchivos();
+        //Intent
         String url = "https://www.redalyc.org/pdf/356/35602713.pdf";
         DownloadManager.Request request = new DownloadManager.Request(Uri.parse(url));
         request.setDescription("PDF");
@@ -100,6 +116,8 @@ public class MainActivity extends AppCompatActivity {
                 request.setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED);
             }
         request.setDestinationInExternalPublicDir(Environment.DIRECTORY_DOWNLOADS, "filedownload.pdf");
+       // request.setDestinationUri();
+        //request.setDestinationInExternalFilesDir(Context.STORAGE_SERVICE ,NOMBRE,"filedownload.pdf");
         DownloadManager manager = (DownloadManager) getSystemService(Context.DOWNLOAD_SERVICE);
         try {
             manager.enqueue(request);
@@ -123,6 +141,9 @@ public class MainActivity extends AppCompatActivity {
             Bundle extras = data.getExtras();
             Bitmap imageBitmap = (Bitmap) extras.get("data");
             Fotocam.setImageBitmap(imageBitmap);
+        }
+        if(requestCode==5 && resultCode == RESULT_OK){
+            txtdir.setText(data.getData().getPath());
         }
     }
 

@@ -13,7 +13,7 @@
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
         android:layout_marginStart="23dp"
-        android:layout_marginTop="29dp"
+        android:layout_marginTop="20dp"
         android:onClick="BajarDoc"
         android:text="Descargar PDF" />
 
@@ -21,20 +21,20 @@
         android:id="@+id/button2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_below="@+id/button"
         android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true"
-        android:layout_marginStart="195dp"
-        android:layout_marginTop="29dp"
+        android:layout_marginStart="189dp"
+        android:layout_marginTop="13dp"
         android:text="Mostrar Descargas" />
 
     <Button
         android:id="@+id/btncamara"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_below="@+id/button"
         android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true"
-        android:layout_marginStart="26dp"
-        android:layout_marginTop="102dp"
+        android:layout_marginStart="23dp"
+        android:layout_marginTop="13dp"
         android:onClick="llamarcamara"
         android:text="Camara" />
 
@@ -42,9 +42,21 @@
         android:id="@+id/imgFoto"
         android:layout_width="339dp"
         android:layout_height="402dp"
+        android:layout_below="@+id/btncamara"
         android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true"
-        android:layout_marginStart="40dp"
-        android:layout_marginTop="158dp"
+        android:layout_centerHorizontal="true"
+        android:layout_marginStart="26dp"
+        android:layout_marginTop="5dp"
         tools:srcCompat="@tools:sample/avatars" />
+
+    <TextView
+        android:id="@+id/txtdir"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginStart="5dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="10dp"
+        android:layout_toEndOf="@+id/button" />
 </RelativeLayout>
